@@ -1,0 +1,29 @@
+﻿a board is needed, chips must be spreaded over the board
+
+- Machine's Logic (Priority System)
+	� If there's a kill, select whatever chip and move it
+	� If there's 
+
+- Get available options mechanism:
+
+foreach xDir in xDirs
+	if nextCell.chip == null
+		option.cell = nextCell
+		continue
+	else 
+		if nextCell.chip.team != currentCell.chip.team
+			nextCell = findCell (nextCell.position + {x: xDir, y: yDir})
+			if (nextCell.chip == null)
+				option.kills.push (nextCell)
+				do
+					nextCellOptions = getMoves (nextCell)
+					if (nextCellOptions.length == 0)
+						break
+					options = ...nextCellOptions
+				
+					
+ISSUES:
+- AI Priority Decision System is not complete
+- Promoted Chips Logic isn't implemented yet
+- Winning & Losing Logic isn't implemented yet
+- Consecutive Killing Logic
