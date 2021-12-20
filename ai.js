@@ -92,7 +92,7 @@ function counterplay(team)
 	if (choices.length == 0)
 		return null;
 	// Get a random index
-	var randomIndex = getRandomInt(0, choices.length - 1);
+	let randomIndex = getRandomInt(0, choices.length - 1);
 	// Return a random safe choice
 	return choices[randomIndex];
 }
@@ -104,19 +104,3 @@ function getRandomInt(min, max)
 	
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,33 +1,33 @@
 // Game config
-var rows = 8, cols = 8;
-var cellSize = 75;
+let rows = 8, cols = 8;
+let cellSize = 75;
 
-var pageSize = 
+let pageSize = 
 {
 	height: $(document).height(),
 	width: $(document).width()
 };
 
-var pOne = {
+let pOne = {
 	className: "bg-blue",
 	base: 1,
 	rows: [1, 2, 3],
 	chips: []
 };
 
-var pTwo = {
+let pTwo = {
 	className: "bg-red",
 	base: 8,
 	rows: [6, 7, 8],
 	chips: []
 };
 
-var focusedCell = "highlighted";
-var promotedChip = "crowned";
-var board = document.getElementById("board");
+let focusedCell = "highlighted";
+let promotedChip = "crowned";
+let board = document.getElementById("board");
 
 // Game state
-var turn = pTwo;
+let turn = pTwo;
 
 // Game initial settings
 board.style.width = cols * cellSize;
@@ -41,19 +41,12 @@ function getCell(chip) { return chip.parentElement; }
 
 function getPosition(cell) 
 {
-	var p = cell.id.split("-");
+	let p = cell.id.split("-");
 
 	return {
 		x: parseInt(p[0]),
 		y: parseInt(p[1])
 	};
-}
-
-function isOutOfBounds(cell) 
-{
-	var p = getPosition(cell);
-
-	return (p.x < 1 || p.x > cols) || (p.y < 1 || p.y > rows);
 }
 
 function findCell(position) { return document.getElementById(position.x + "-" + position.y); }
@@ -232,7 +225,7 @@ function prioritizeKilling (options)
 function showPossibleMoves(cell) 
 {
 	// Retrieve the possible options for that cell
-	var result = isPromoted (getChip (cell)) ? getPromotedMoves (cell, pTwo.className) : getMoves (cell, pTwo.className);
+	let result = isPromoted (getChip (cell)) ? getPromotedMoves (cell, pTwo.className) : getMoves (cell, pTwo.className);
 	// Prioritize killing if there are any
 	result = prioritizeKilling (result);
 	// Unhighlight all cells
@@ -282,7 +275,7 @@ function promote(chip)
 
 function gameOver (winner)
 {
-	var result = winner != pTwo ? {cls:"bg-lose", msg: "You lost, try harder next time!"} : {cls: "bg-win", msg:"Congratulations! You are the winner!"} ;
+	let result = winner != pTwo ? {cls:"bg-lose", msg: "You lost, try harder next time!"} : {cls: "bg-win", msg:"Congratulations! You are the winner!"} ;
 		
 	$("#pop-up > .header").addClass(result.cls);
 	$("#pop-up > .body").text(result.msg);
@@ -321,19 +314,19 @@ function changeTurn()
 function createBoard(board, rows, cols, p1, p2) 
 {
 	// False 	=> BLACK, True 	=> WHITE
-	var cellColor = false;
+	let cellColor = false;
 	for (i = 1; i <= rows; i++) {
 		for (j = 1; j <= cols; j++) {
-			var cell = document.createElement("div");
+			let cell = document.createElement("div");
 			addClass(cell, "board-cell");
 			addClass(cell, cellColor ? "bg-white" : "bg-black");
 			cell.id = j + "-" + i;
 
 			if (!cellColor && (p1.includes(i) || p2.includes(i))) 
 			{
-				var chipColor = p1.includes(i) ? pOne.className : pTwo.className;
+				let chipColor = p1.includes(i) ? pOne.className : pTwo.className;
 
-				var chip = document.createElement("div");
+				let chip = document.createElement("div");
 				addClass(chip, "chip");
 				addClass(chip, chipColor);
 				addClass(chip, "clickable");
@@ -400,8 +393,6 @@ function unhighlight()
 }
 
 function highlightCell(cell) { addClass(cell, focusedCell); }
-
-function comparePositions(a, b) { return a.x == b.x && a.y == b.y; }
 
 createBoard (board, rows, cols, pOne.rows, pTwo.rows);
 centerBoard (board);
